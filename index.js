@@ -7,10 +7,28 @@ clickMeButton.addEventListener('click', () => {
     const promise = getImages(pageNumber.value)
     promise.then(onDataReceived)
 })
+
 getTasksButton.addEventListener('click', () => {
-    const promise = getTasks()
-    promise.then(onDataReceived)
+   const promise = getTasks()
+    promise.then(onTaskReceived)
 })
+createTasks('hello').then((data) => {
+    console.log(data)
+})
+deleteTasks('id').then((data) => {
+    console.log(data)
+})
+
+function onTaskReceived(tasks) {
+    const result = document.querySelector('#task-result')
+    result.innerHTML = ''
+    tasks.forEach(task => {
+        const li = document.createElement('li')
+        li.innerHTML = task.title
+
+        result.appendChild(li)
+    })
+}
 
 function onDataReceived(array) {
     array.forEach(el => {
@@ -20,18 +38,6 @@ function onDataReceived(array) {
     })
 }
 
-createTasks('hello').then((data) => {
-    debugger
-    console.log(data)
-})
-
-function onTaskReceived(tasks) {
-    tasks.forEach(task => {
-        const li = document.createElement('li')
-        li.innerHTML = task
-        document.querySelector('#task-result').appendChild(li)
-    })
-}
 
 
 //types get / post /put /delete /options
