@@ -1,13 +1,22 @@
-console.log(0)
+const resultBlock = document.querySelector('#result')
+const pageNumber = document.querySelector('#page-number')
+const clickMeButton = document.querySelector('#click-me')
 
-$.ajax('https://repetitora.net/api/JS/Images', {
-    success: function (data) {
-        data.forEach(el => {
-            const img = document.createElement('img')
-            img.src = el.thumbnail
-            document.querySelector('body').appendChild(img)
-        })
-    }
-})
+clickMeButton.addEventListener('click', makeRequest)
 
-console.log(1)
+function makeRequest() {
+    $.ajax(`https://repetitora.net/api/JS/Images?page=${pageNumber.value}&count=1`, {
+        success: function (data) {
+            data.forEach(el => {
+                const img = document.createElement('img')
+                img.src = el.thumbnail
+                document.querySelector('#result').appendChild(img)
+            })
+        }
+    })
+}
+
+
+//types get / post /put /delete /options
+
+//GET when i want to get images / all i need
